@@ -1,0 +1,11 @@
+version: '3.2'
+services:
+  bikeconsumer:
+    build: .
+    volumes:
+     - ./src:./src/Consumer
+    ports:
+     - "5000:5000"
+    labels:
+      name: "Consumer for Dublin Bus Job"
+      role: "Consumer App"
