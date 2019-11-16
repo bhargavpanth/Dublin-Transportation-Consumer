@@ -17,7 +17,7 @@ class Consumer:
 	def __init__(self, flag, host):
 		self.flag = flag
 		self.host = host
-		self.cluster_ip = ''
+		self.cluster_ip = '' #cluster IP to be set
 		self.sc = SparkContext()
 		self.ssc = StreamingContext(self.sc, 10)
 		self.cassandra = Cluster([self.cluster_ip])
