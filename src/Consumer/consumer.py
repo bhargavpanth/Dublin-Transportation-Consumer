@@ -52,6 +52,9 @@ class Consumer:
 			essential_data.append(item)
 		self.store_in_cassandra(essential_data[0])
 
+	def get_stream(self):
+		return self.mqtt_stream
+
 	def store_in_cassandra(self, data):
 		"""
 		figure out the schema

@@ -5,6 +5,7 @@ from consumer import Consumer
 
 class FeatureSelection:
     def __init__(self):
-        self.stream = Consumer('bus', 'localhost')
-        self.spark = SparkSession.builder.appName('dublin_transportation').getOrCreate()
-        
+        self.consumer = Consumer('bus', 'localhost')
+        self.stream = self.consumer.get_stream()
+
+
