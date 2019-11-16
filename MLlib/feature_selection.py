@@ -8,4 +8,6 @@ class FeatureSelection:
         self.consumer = Consumer('bus', 'localhost')
         self.stream = self.consumer.get_stream()
 
+    def select_feature(self):
+        pass
 
