@@ -9,5 +9,14 @@ class FeatureSelection:
         self.stream = self.consumer.get_stream()
 
     def select_feature(self):
+        '''
+        schema
+        -------
+        stop_id
+        delay
+        route_id
+        departure
+        temperature
+        '''
         pass
 
