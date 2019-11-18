@@ -1,5 +1,6 @@
 from pyspark.sql import SparkSession
 from pyspark.ml.feature import VectorAssembler
+from pyspark.ml.classification import RandomForestClassifier
 import sys
 sys.path.append('src/Consumer/')
 from consumer import Consumer
@@ -10,15 +11,6 @@ class FeatureSelection:
         self.stream = self.consumer.get_stream()
 
     def select_feature(self):
-        '''
-        schema
-        -------
-        stop_id
-        delay
-        route_id
-        departure
-        temperature
-        '''
         rdd = self.stream.filter(lambda message: is_number(message)) \
             .map(lambda message: ( round(float(message) * 2, 0) / 2, 1 )) \
             .transform(lambda rdd: rdd.sortByKey())
