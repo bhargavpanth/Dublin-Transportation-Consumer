@@ -12,10 +12,18 @@ class FeatureSelection:
 
     def select_feature(self):
         rdd = self.stream.filter(lambda message: is_number(message)) \
-            .map(lambda message: ( round(float(message) * 2, 0) / 2, 1 )) \
+            .map(lambda message: round(float(message))) \
             .transform(lambda rdd: rdd.sortByKey())
-        assembler = VectorAssembler(inputCols = ['stop_id', 'delay', 'route_id', 'departure'], outputCol = 'features')
-        assembler.transform(rdd)
+        assembler = VectorAssembler(inputCols = ['stop_id', 'delay', 'route_id', 'temperature'], outputCol = 'features')
+        return assembler.transform(rdd)
+
+    def random_forests(self):
+        features = self.select_feature()
+        rf = RandomForestClassifier(labelCol = 'temperature', featuresCol = 'features')
+        final_df = features.select('features', 'temperature')
+        rf_model = rf.fit(final_df)
+        print(rf_model.featureImportances)
+        return rf_model.featureImportances
 
 def is_number(s):
     try:
