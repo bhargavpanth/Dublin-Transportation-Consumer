@@ -18,7 +18,6 @@ class Consumer:
 		connection = pika.BlockingConnection(pika.ConnectionParameters(host=self.host))
 		channel = connection.channel()
 		channel.queue_declare(queue=str(self.flag))
-		# channel.basic_consume(self.callback, queue=str(self.flag), no_ack=True)
 		channel.basic_consume(self.callback, queue=str(self.flag), no_ack=True)
 		message = channel.start_consuming()
 		return message
@@ -41,12 +40,8 @@ class Consumer:
 			item["longitude"] = read_dictionary[i][0]
 			item["lattitude"] = read_dictionary[i][1]
 			essential_data.append(item)
-		print essential_data
 		self.pushToMongo(essential_data[0])
-		print essential_data
-		#return essential_data
-			# pass
-			# print(" [x] Received %r" % body)
+
 	def pushToMongo(self, dataToBePushed):
 		client = MongoClient()
 		client = MongoClient('localhost', 27017)
