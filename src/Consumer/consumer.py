@@ -15,12 +15,11 @@ class Consumer:
 		self.host = host
 
 	def pull_message(self):
-		connection = pika.BlockingConnection(pika.ConnectionParameters(host=self.host))
-		channel = connection.channel()
+		self.connection = pika.BlockingConnection(pika.ConnectionParameters(host=self.host))
+		channel = self.connection.channel()
 		channel.queue_declare(queue=str(self.flag))
 		channel.basic_consume(self.callback, queue=str(self.flag), no_ack=True)
-		message = channel.start_consuming()
-		return message
+		return channel.start_consuming()
 
 	def callback(self, ch, method, properties, body):
 		values = ast.literal_eval(body)
@@ -42,9 +41,6 @@ class Consumer:
 			essential_data.append(item)
 		# Deprecate MonogDB and introduce Cassandra
 		# self.pushToMongo(essential_data[0])
-
-
-
 
 	def terminate_connection(self):
 		self.connection.close()
