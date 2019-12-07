@@ -31,7 +31,7 @@ class Consumer:
 			l = values.get(i)
 			item = dict()
 			item["stopid"] = str(i)
-			counter = 0;
+			counter = 0
 			for j in l:
 				if j["duetime"]=="due":
 					counter = counter+1
