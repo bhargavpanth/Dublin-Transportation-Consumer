@@ -4,3 +4,4 @@ requests==2.18.4
 urllib3==1.22
 logging==0.4.9.6
 python-logstash==0.4.6
+pyspark==3.0.1
