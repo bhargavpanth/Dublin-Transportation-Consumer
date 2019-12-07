@@ -40,18 +40,8 @@ class Consumer:
 			item["longitude"] = read_dictionary[i][0]
 			item["lattitude"] = read_dictionary[i][1]
 			essential_data.append(item)
-		self.pushToMongo(essential_data[0])
-
-	def pushToMongo(self, dataToBePushed):
-		client = MongoClient()
-		client = MongoClient('localhost', 27017)
-		db = client['bus-database']
-		posts = db.posts
-		post = dataToBePushed
-		print "----------------"
-		print type(post)
-		post_id = posts.insert_one(post).inserted_id
-		print post_id
+		# Deprecate MonogDB and introduce Cassandra
+		# self.pushToMongo(essential_data[0])
 
 
 
