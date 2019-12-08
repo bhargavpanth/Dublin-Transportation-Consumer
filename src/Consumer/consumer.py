@@ -6,13 +6,17 @@ import time
 import numpy as np
 import os
 import ast
-from pymongo import MongoClient
+from pyspark import SparkContext
+from pyspark.streaming import StreamingContext
+from pyspark.streaming.mqtt import MQTTUtils
 
 class Consumer:
 
 	def __init__(self, flag, host):
 		self.flag = flag
 		self.host = host
+		self.sc = SparkContext()
+		self.ssc = StreamingContext(self.sc, 10)
 
 	def pull_message(self):
 		self.connection = pika.BlockingConnection(pika.ConnectionParameters(host=self.host))
