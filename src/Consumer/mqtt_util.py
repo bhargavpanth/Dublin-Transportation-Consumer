@@ -29,15 +29,14 @@ class MQTTUtils(object):
     def createStream(ssc, brokerUrl, topic, storageLevel=StorageLevel):
         # MEMORY_AND_DISK_SER_2
         """
-        Create an input stream that pulls messages from a Mqtt Broker.
-
+        Create an input stream that pulls messages from a Mqtt Broker
         :param ssc:  StreamingContext object
         :param brokerUrl:  Url of remote mqtt publisher
         :param topic:  topic name to subscribe to
         :param storageLevel:  RDD storage level.
         :return: A DStream object
         """
-        jlevel = ssc._sc._getJavaStorageLevel(storageLevel)
+        jlevel = ssc._sc._getJavaStorageLevel(storageLevel.MEMORY_AND_DISK_SER_2)
         try:
             helperClass = ssc._jvm.java.lang.Thread.currentThread().getContextClassLoader() \
                 .loadClass("org.apache.spark.streaming.mqtt.MQTTUtilsPythonHelper")
