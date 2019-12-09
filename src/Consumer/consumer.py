@@ -8,7 +8,8 @@ import os
 import ast
 from pyspark import SparkContext
 from pyspark.streaming import StreamingContext
-from pyspark.streaming.mqtt import MQTTUtils
+from pyspark.streaming import DStream
+from mqtt_util import MQTTUtils
 
 class Consumer:
 
@@ -18,6 +19,7 @@ class Consumer:
 		self.sc = SparkContext()
 		self.ssc = StreamingContext(self.sc, 10)
 
+	# Fetching data from RabbitMQ
 	def pull_message(self):
 		self.connection = pika.BlockingConnection(pika.ConnectionParameters(host=self.host))
 		channel = self.connection.channel()
@@ -29,19 +31,19 @@ class Consumer:
 		values = ast.literal_eval(body)
 		essential_data = list()
 		print(type(values))
-		read_dictionary = np.load(os.getcwd() + "/model/d1.npy").item()
+		read_dictionary = np.load(os.getcwd() + '/model/d1.npy').item()
 
 		for i in values.keys():
 			l = values.get(i)
 			item = dict()
-			item["stopid"] = str(i)
+			item['stopid'] = str(i)
 			counter = 0
 			for j in l:
-				if j["duetime"]=="due":
+				if j['duetime']=='due':
 					counter = counter+1
-			item["due_count"] = str(counter)
-			item["longitude"] = read_dictionary[i][0]
-			item["lattitude"] = read_dictionary[i][1]
+			item['due_count'] = str(counter)
+			item['longitude'] = read_dictionary[i][0]
+			item['latitude'] = read_dictionary[i][1]
 			essential_data.append(item)
 		# Deprecate MonogDB and introduce Cassandra
 		# self.pushToMongo(essential_data[0])
