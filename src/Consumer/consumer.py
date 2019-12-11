@@ -10,14 +10,17 @@ from pyspark import SparkContext
 from pyspark.streaming import StreamingContext
 from pyspark.streaming import DStream
 from mqtt_util import MQTTUtils
+from cassandra.cluster import Cluster
 
 class Consumer:
 
 	def __init__(self, flag, host):
 		self.flag = flag
 		self.host = host
+		self.cluster_ip = ''
 		self.sc = SparkContext()
 		self.ssc = StreamingContext(self.sc, 10)
+		self.cassandra = Cluster([self.cluster_ip])
 
 	# Fetching data from RabbitMQ
 	def pull_message(self):
@@ -47,6 +50,12 @@ class Consumer:
 			essential_data.append(item)
 		# Deprecate MonogDB and introduce Cassandra
 		# self.pushToMongo(essential_data[0])
+
+	def store_in_cassandra(self):
+		"""
+		docstring
+		"""
+		pass
 
 	def terminate_connection(self):
 		self.connection.close()
