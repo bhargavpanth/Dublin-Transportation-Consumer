@@ -1,11 +1,64 @@
 version: '3.2'
 services:
+  # consumer app
   bikeconsumer:
     build: .
     volumes:
      - ./src:./src/Consumer
     ports:
-     - "5000:5000"
+     - '5000:5000'
     labels:
-      name: "Consumer for Dublin Bus Job"
-      role: "Consumer App"
+      name: 'Consumer for Dublin Bus Job'
+      role: 'Consumer App'
+
+    cassandra_node1:
+      image: cassandra:3.11.6
+      container_name: cassandra_node1
+      command: /bin/bash -c "/docker-entrypoint.sh cassandra -f"
+      volumes:
+        - ./cassandra_node1:/var/lib/cassandra
+      environment:
+        CASSANDRA_CLUSTER_NAME: monitoring_cluster
+        CASSANDRA_SEEDS: cassandra_node1
+        CASSANDRA_START_RPC: 'true'
+      # Exposing ports for intra cluster communication
+      expose:
+        - 7000 # Intra-node communication
+        - 7001 # TLS intra-node communication
+        - 7199 # JMX
+        - 9042 # CQL
+        - 9160 # Thrift service
+      ports:
+        - 9042:9042
+        - 7199:7199
+        - 9160:9160
+      ulimits:
+        memlock: -1
+        nproc: 32768
+        nofile: 100000
+
+    cassandra_node2:
+      image: cassandra:3.11.6
+      container_name: cassandra_node2
+      command: /bin/bash -c "/docker-entrypoint.sh cassandra -f"
+      volumes:
+        - ./cassandra_node1:/var/lib/cassandra
+      environment:
+        CASSANDRA_CLUSTER_NAME: monitoring_cluster
+        CASSANDRA_SEEDS: cassandra_node1
+        CASSANDRA_START_RPC: 'true'
+      # Exposing ports for intra cluster communication
+      expose:
+        - 7000 # Intra-node communication
+        - 7001 # TLS intra-node communication
+        - 7199 # JMX
+        - 9042 # CQL
+        - 9160 # Thrift service
+      ports:
+        - 9042:9042
+        - 7199:7199
+        - 9160:9160
+      ulimits:
+        memlock: -1
+        nproc: 32768
+        nofile: 100000
