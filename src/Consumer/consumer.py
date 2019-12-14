@@ -21,6 +21,7 @@ class Consumer:
 		self.sc = SparkContext()
 		self.ssc = StreamingContext(self.sc, 10)
 		self.cassandra = Cluster([self.cluster_ip])
+		self.mqtt_stream = MQTTUtils.createStream(self.ssc, 'tcp://{host}:1883', flag)
 
 	# Fetching data from RabbitMQ
 	def pull_message(self):
