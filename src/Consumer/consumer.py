@@ -8,7 +8,7 @@ import os
 import ast
 from pyspark import SparkContext
 from pyspark.streaming import StreamingContext
-from pyspark.streaming import DStream
+from pyspark.sql import SparkSession
 from mqtt_util import MQTTUtils
 from cassandra.cluster import Cluster
 
@@ -21,6 +21,7 @@ class Consumer:
 		self.sc = SparkContext()
 		self.ssc = StreamingContext(self.sc, 10)
 		self.cassandra = Cluster([self.cluster_ip])
+		self.spark = SparkSession.builder.appName('consumer').getOrCreate()
 		self.mqtt_stream = MQTTUtils.createStream(self.ssc, 'tcp://{host}:1883', flag)
 
 	# Fetching data from RabbitMQ
@@ -28,10 +29,10 @@ class Consumer:
 		self.connection = pika.BlockingConnection(pika.ConnectionParameters(host=self.host))
 		channel = self.connection.channel()
 		channel.queue_declare(queue=str(self.flag))
-		channel.basic_consume(self.callback, queue=str(self.flag), no_ack=True)
+		channel.basic_consume(self.stream_data, queue=str(self.flag), no_ack=True)
 		return channel.start_consuming()
 
-	def callback(self, ch, method, properties, body):
+	def stream_data(self, ch, method, properties, body):
 		values = ast.literal_eval(body)
 		essential_data = list()
 		print(type(values))
@@ -49,12 +50,11 @@ class Consumer:
 			item['longitude'] = read_dictionary[i][0]
 			item['latitude'] = read_dictionary[i][1]
 			essential_data.append(item)
-		# Deprecate MonogDB and introduce Cassandra
-		# self.pushToMongo(essential_data[0])
+		self.store_in_cassandra(essential_data[0])
 
-	def store_in_cassandra(self):
+	def store_in_cassandra(self, data):
 		"""
-		docstring
+		figure out the schema
 		"""
 		pass
 
