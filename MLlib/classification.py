@@ -1,5 +1,6 @@
 from pyspark import SparkContext
 from pyspark.streaming import StreamingContext
+from pyspark.ml.classification import LogisticRegression
 import sys
 sys.path.append('src/Consumer/')
 from consumer import Consumer
@@ -11,8 +12,10 @@ class Classification:
         self.stream = self.consumer.get_stream()
 
     def logistic_regression(self):
+        # read from the stream
         rdd = self.stream.filter(lambda message: is_number(message)) \
             .map(lambda message: round(float(message))) \
             .transform(lambda rdd: rdd.sortByKey())
-        pass
+        # select the required features
+        rdd.select(['stop_id', 'delay', 'route_id', 'temperature'])
 
