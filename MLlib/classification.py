@@ -1,6 +1,8 @@
 from pyspark import SparkContext
 from pyspark.streaming import StreamingContext
 from pyspark.ml.classification import LogisticRegression
+from pyspark.ml.feature import VectorAssembler, StringIndexer, VectorIndexer, OneHotEncoder
+from pyspark.ml import Pipeline
 import sys
 sys.path.append('src/Consumer/')
 from consumer import Consumer
@@ -17,5 +19,6 @@ class Classification:
             .map(lambda message: round(float(message))) \
             .transform(lambda rdd: rdd.sortByKey())
         # select the required features
-        rdd.select(['stop_id', 'delay', 'route_id', 'temperature'])
+        columns = rdd.select(['stop_id', 'delay', 'route_id', 'temperature'])
+
 
