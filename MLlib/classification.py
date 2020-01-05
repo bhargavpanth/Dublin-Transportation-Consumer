@@ -20,5 +20,6 @@ class Classification:
             .transform(lambda rdd: rdd.sortByKey())
         # select the required features
         columns = rdd.select(['stop_id', 'delay', 'route_id', 'temperature'])
+        log_reg = LogisticRegression(featuresCol = 'features', labelCol = 'delay')
 
 
