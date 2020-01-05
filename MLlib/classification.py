@@ -15,11 +15,20 @@ class Classification:
 
     def logistic_regression(self):
         # read from the stream
-        rdd = self.stream.filter(lambda message: is_number(message)) \
+        rdd = self.stream.filter(lambda message: is_number(message.temperature)) \
+            .map(lambda message: float(message.delay > 10000)) \
             .map(lambda message: round(float(message))) \
             .transform(lambda rdd: rdd.sortByKey())
         # select the required features
-        columns = rdd.select(['stop_id', 'delay', 'route_id', 'temperature'])
         log_reg = LogisticRegression(featuresCol = 'features', labelCol = 'delay')
+        temperature_indexer = StringIndexer(inputCol = 'temperature', outputCol = 'temp_index')
+        delay_encoder = OneHotEncoder(inputCol='delay', outputCol = 'delay_vector')
+        pipeline = Pipeline(stages = [temperature_indexer, delay_encoder, log_reg])
+        columns = rdd.select(['stop_id', 'delay', 'route_id', 'temperature'])
+        train, test = columns.randomSplit([0.7, 0.3])
+        fit_model = pipeline.fit(train)
+        results = fit_model.transform(test)
+        print(results)
+        return results
 
 
