@@ -30,4 +30,6 @@ class Classification:
         results = fit_model.transform(test)
         return results
 
-
+# def main():
+#     log = Classification()
+#     log.logistic_regression()
