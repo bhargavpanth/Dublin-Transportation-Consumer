@@ -28,7 +28,6 @@ class Classification:
         train, test = columns.randomSplit([0.7, 0.3])
         fit_model = pipeline.fit(train)
         results = fit_model.transform(test)
-        print(results)
         return results
 
 
