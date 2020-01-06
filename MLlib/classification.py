@@ -29,7 +29,3 @@ class Classification:
         fit_model = pipeline.fit(train)
         results = fit_model.transform(test)
         return results
-
-# def main():
-#     log = Classification()
-#     log.logistic_regression()

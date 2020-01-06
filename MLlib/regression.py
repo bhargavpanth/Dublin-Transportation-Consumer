@@ -9,7 +9,7 @@ class Regression:
         self.consumer = Consumer('bus', 'localhost')
         self.stream = self.consumer.get_stream()
 
-    def funcname(self):
+    def clean_up(self):
         pass
 
 
