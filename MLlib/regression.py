@@ -11,6 +11,7 @@ class Regression:
         self.stream = self.consumer.get_stream()
         self.cleaned_stream = self.stream.map(self.clean_up)
 
-    def clean_up(self):
-        pass
+    def clean_up(self, data):
+        record = json.dumps(data, separators=(',', ':'))
+        # schema required
 
