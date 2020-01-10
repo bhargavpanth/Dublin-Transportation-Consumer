@@ -35,9 +35,7 @@ class Consumer:
 	def stream_data(self, ch, method, properties, body):
 		values = ast.literal_eval(body)
 		essential_data = list()
-		print(type(values))
 		read_dictionary = np.load(os.getcwd() + '/model/d1.npy').item()
-
 		for i in values.keys():
 			l = values.get(i)
 			item = dict()

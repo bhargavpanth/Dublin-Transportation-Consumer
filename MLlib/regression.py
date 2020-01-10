@@ -2,6 +2,9 @@ from pyspark import SparkContext
 from pyspark.streaming import StreamingContext
 import sys
 import json
+import ast
+import numpy as np
+import os
 sys.path.append('src/Consumer/')
 from consumer import Consumer
 
@@ -12,6 +15,21 @@ class Regression:
         self.cleaned_stream = self.stream.map(self.clean_up)
 
     def clean_up(self, data):
+        essential_data = list()
+        read_dictionary = np.load(os.getcwd() + '/model/d1.npy').item()
         record = json.dumps(data, separators=(',', ':'))
-        # schema required
+        values = ast.literal_eval(record)
+        for i in values.get():
+            rec = values.get(i)
+            item = dict()
+            item['stopid'] = str(i)
+            counter = 0
+            for j in rec:
+                if j['duetime']=='due':
+                    counter = counter+1
+                    
+            item['due_count'] = str(counter)
+            item['longitude'] = read_dictionary[i][0]
+            item['latitude'] = read_dictionary[i][1]
+            essential_data.append(item)
 
