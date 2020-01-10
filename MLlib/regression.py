@@ -33,3 +33,6 @@ class Regression:
             item['latitude'] = read_dictionary[i][1]
             essential_data.append(item)
 
+    def create_data_frame(self):
+        pass
+
