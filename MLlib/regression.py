@@ -1,4 +1,4 @@
-from pyspark import SparkContext
+from pyspark import SparkContext, SparkConf
 from pyspark.streaming import StreamingContext
 from pyspark.sql import Row
 import sys
@@ -10,6 +10,8 @@ sys.path.append('src/Consumer/')
 from consumer import Consumer
 
 class Regression:
+    conf = SparkConf().setMaster('local').setAppName('linear_regression')
+    sc = SparkContext(conf = conf)
     def __init__(self):
         self.consumer = Consumer('bus', 'localhost')
         self.stream = self.consumer.get_stream()
@@ -35,5 +37,5 @@ class Regression:
             essential_data.append(item)
 
     def create_data_frame(self):
-        pass
+        spark.createDateFrame(self.cleaned_stream)
 
