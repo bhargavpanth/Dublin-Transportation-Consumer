@@ -16,6 +16,7 @@ class Regression:
         self.cleaned_stream = self.stream.map(self.clean_up)
         self.conf = SparkConf().setMaster('local').setAppName('linear_regression')
         self.sc = SparkContext(conf = self.conf)
+        self.spark = SparkSession(self.sc)
 
     def clean_up(self, data):
         essential_data = list()
@@ -37,5 +38,5 @@ class Regression:
             essential_data.append(item)
 
     def create_data_frame(self):
-        self.sc.createDateFrame(self.cleaned_stream)
+        self.spark.createDateFrame(self.cleaned_stream)
 
