@@ -38,11 +38,8 @@ class Regression:
             essential_data.append(item)
 
     def create_data_frame(self):
-        data = self.spark.createDateFrame(self.cleaned_stream)
-        print(data.select('temperature', 'delay').describe().show())
-        for i in data.columns:
-            print(i)
+        return self.spark.createDateFrame(self.cleaned_stream)
+
+    def train_test_split(self, data):
         (train, test) = data.randomSplit([0.3, 0.7])
-        print(train.count())
-        print(test.count())
-        print('-=-=-=-=-=-')
+        return (train, test)
