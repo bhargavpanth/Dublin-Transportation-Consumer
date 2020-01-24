@@ -1,6 +1,7 @@
-from pyspark import SparkContext, SparkConf
+from pyspark import SparkContext, SparkConf, SparkSession
 from pyspark.streaming import StreamingContext
 from pyspark.sql import Row
+from pyspark.ml.regression import LinearRegression
 import sys
 import json
 import ast
@@ -43,3 +44,9 @@ class Regression:
     def train_test_split(self, data):
         (train, test) = data.randomSplit([0.3, 0.7])
         return (train, test)
+
+    def linear_regression(self, training_data):
+        linear_regression = LinearRegression(maxIter=10)
+        model = linear_regression.fit(training_data)
+        print('Coefficients: ' + str(model.coefficients))
+        print('Intercept: ' + str(model.intercept))
