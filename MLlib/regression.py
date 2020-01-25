@@ -47,6 +47,11 @@ class Regression:
 
     def linear_regression(self, training_data):
         linear_regression = LinearRegression(maxIter=10)
-        model = linear_regression.fit(training_data)
+        return linear_regression.fit(training_data)
+        
+    def predict(self, model, test_data):
         print('Coefficients: ' + str(model.coefficients))
         print('Intercept: ' + str(model.intercept))
+        predictions = model.transform(test_data)
+        return predictions.select('delay').show()
+
