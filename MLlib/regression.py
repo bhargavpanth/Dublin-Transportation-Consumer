@@ -55,3 +55,8 @@ class Regression:
         predictions = model.transform(test_data)
         return predictions.select('delay').show()
 
+def main():
+    Regression().predict()
+
+if __name__ == '__main__':
+    main()
