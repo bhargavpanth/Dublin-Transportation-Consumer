@@ -56,7 +56,11 @@ class Regression:
         return predictions.select('delay').show()
 
 def main():
-    Regression().predict()
+    model = Regression()
+    frame = model.create_data_frame()
+    train, test = model.train_test_split(frame)
+    fit = model.linear_regression(train)
+    print(fit.predict(test))
 
 if __name__ == '__main__':
     main()
