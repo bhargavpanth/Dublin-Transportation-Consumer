@@ -11,7 +11,7 @@ class FeatureSelection:
         self.stream = Consumer('bus', 'localhost').get_stream()
 
     def select_feature(self):
-        rdd = self.stream.filter(lambda message: is_number(message)) \
+        rdd = self.stream.filter(lambda message: float(message)) \
             .map(lambda message: round(float(message))) \
             .transform(lambda rdd: rdd.sortByKey())
         assembler = VectorAssembler(inputCols = ['stop_id', 'delay', 'route_id', 'temperature'], outputCol = 'features')
@@ -24,4 +24,10 @@ class FeatureSelection:
         rf_model = rf.fit(final_df)
         print(rf_model.featureImportances)
         return rf_model.featureImportances
+
+def main():
+    FeatureSelection().random_forests()
+
+if __name__ == '__main__':
+    main()
 
