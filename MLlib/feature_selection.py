@@ -26,9 +26,3 @@ class FeatureSelection:
         print(rf_model.featureImportances)
         return rf_model.featureImportances
 
-def is_number(s):
-    try:
-        float(s)
-        return True
-    except ValueError:
-        return False
