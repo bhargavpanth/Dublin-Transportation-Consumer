@@ -8,8 +8,7 @@ from consumer import Consumer
 
 class FeatureSelection:
     def __init__(self):
-        self.consumer = Consumer('bus', 'localhost')
-        self.stream = self.consumer.get_stream()
+        self.stream = Consumer('bus', 'localhost').get_stream()
 
     def select_feature(self):
         rdd = self.stream.filter(lambda message: is_number(message)) \
