@@ -32,7 +32,6 @@ class Regression:
             for j in rec:
                 if j['duetime']=='due':
                     counter = counter+1
-                    
             item['due_count'] = str(counter)
             item['longitude'] = read_dictionary[i][0]
             item['latitude'] = read_dictionary[i][1]

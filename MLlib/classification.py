@@ -15,7 +15,7 @@ class Classification:
 
     def logistic_regression(self):
         # read from the stream
-        rdd = self.stream.filter(lambda message: is_number(message.temperature)) \
+        rdd = self.stream.filter(lambda message: float(message.temperature)) \
             .map(lambda message: float(message.delay > 10000)) \
             .map(lambda message: round(float(message))) \
             .transform(lambda rdd: rdd.sortByKey())
@@ -29,3 +29,10 @@ class Classification:
         fit_model = pipeline.fit(train)
         results = fit_model.transform(test)
         return results
+
+
+def main():
+    Classification().logistic_regression()
+
+if __name__ == '__main__':
+    main()
