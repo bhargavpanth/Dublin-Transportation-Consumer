@@ -1,8 +1,9 @@
 ## Dublin Bus Data Pipeline - Consumer
 
 ### What does this project do?
-
  * Using the modules created in [here]('https://gitlab.scss.tcd.ie/panthb/Dublin-Transport_RPP'), the project establishes a pipeline to pull messages from the queue (RabbitMQ)
+ * Runs classification and regression on the stream data
+ * Trying to build an ensemble of multiple classification algorithms
 
 #### RabbitMQ specifics
  * ```sudo rabbitmq-server start```
