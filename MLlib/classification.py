@@ -16,8 +16,7 @@ class Classification:
     def logistic_regression(self):
         # read from the stream
         rdd = self.stream.filter(lambda message: float(message.temperature)) \
-            .map(lambda message: float(message.delay > 10000)) \
-            .map(lambda message: round(float(message))) \
+            .filter(lambda message: float(message.delay > 10000)) \
             .transform(lambda rdd: rdd.sortByKey())
         # select the required features
         log_reg = LogisticRegression(featuresCol = 'features', labelCol = 'delay')

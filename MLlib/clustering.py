@@ -1,9 +1,17 @@
 from pyspark.sql import SparkSession
+from pyspark.ml.feature import VectorAssembler
+from pyspark.ml.clustering import KMeans
 sys.path.append('src/Consumer/')
 from consumer import Consumer
 
-class KMeans:
+class K_Means:
     def __init__(self):
         self.spark = SparkSession.builder.appName('kmeans').getOrCreate()
         self.consumer = Consumer('bus', 'localhost')
         self.stream = self.consumer.get_stream()
+
+    def kmeans(self):
+        rdd = self.stream.filter(lambda message: float(message.temperature)) \
+            .filter(lambda message: float(message.delay > 10000)) \
+            .transform(lambda rdd: rdd.sortByKey())
+        # 
