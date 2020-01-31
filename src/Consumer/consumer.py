@@ -13,7 +13,6 @@ from mqtt_util import MQTTUtils
 from cassandra.cluster import Cluster
 
 class Consumer:
-
 	def __init__(self, flag, host):
 		self.flag = flag
 		self.host = host
