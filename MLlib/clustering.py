@@ -1,4 +1,5 @@
-from pyspark.sql import SparkSession
+from pyspark import SparkContext
+from pyspark.sql import SparkSession, SQLContext
 from pyspark.ml.feature import VectorAssembler
 from pyspark.ml.clustering import KMeans
 sys.path.append('src/Consumer/')
@@ -14,4 +15,6 @@ class K_Means:
         rdd = self.stream.filter(lambda message: float(message.temperature)) \
             .filter(lambda message: float(message.delay > 10000)) \
             .transform(lambda rdd: rdd.sortByKey())
-        # 
+        # dataFrame = create
+        # assembler = VectorAssembler(inputCols = rdd, outputCol = 'features')
+        # final_df = assembler.transform(df)
