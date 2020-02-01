@@ -6,7 +6,6 @@ from pyspark.ml import Pipeline
 import sys
 sys.path.append('src/Consumer/')
 from consumer import Consumer
-import pandas as pd
 
 class Classification:
     def __init__(self):
