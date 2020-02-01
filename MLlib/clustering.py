@@ -1,6 +1,6 @@
 from pyspark import SparkContext, SparkConf
 from pyspark.sql import SparkSession, SQLContext
-from pyspark.ml.feature import VectorAssembler
+from pyspark.ml.feature import VectorAssembler, StandardScaler
 from pyspark.ml.clustering import KMeans
 import sys
 sys.path.append('src/Consumer/')
@@ -21,6 +21,7 @@ class K_Means:
         sqlContext = SQLContext(self.sc)
         schema = sqlContext.createDataFrame(rdd)
         df = schema.createOrReplaceTempView('kmeans')
-        # dataFrame = create
-        # assembler = VectorAssembler(inputCols = rdd, outputCol = 'features')
-        # final_df = assembler.transform(df)
+        assembler = VectorAssembler(inputCols = df.columns, outputCol = 'features')
+        final_df = assembler.transform(df)
+        scaler = StandardScaler(inputCol = 'features', outputCol = 'scaled_features')
+
