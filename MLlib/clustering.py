@@ -24,4 +24,13 @@ class K_Means:
         assembler = VectorAssembler(inputCols = df.columns, outputCol = 'features')
         final_df = assembler.transform(df)
         scaler = StandardScaler(inputCol = 'features', outputCol = 'scaled_features')
+        scaler_model = scaler.fit(final_df)
+        return scaler_model.transform(final_df)
+
+def main():
+    kmeans = K_Means().kmeans()
+    print(kmeans)
+
+if __name__ == '__main__':
+    pass
 
