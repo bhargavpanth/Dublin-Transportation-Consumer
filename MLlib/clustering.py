@@ -32,5 +32,5 @@ def main():
     print(kmeans)
 
 if __name__ == '__main__':
-    pass
+    main()
 
