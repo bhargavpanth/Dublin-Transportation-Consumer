@@ -20,4 +20,7 @@ if __name__ == '__main__':
 	parser.add_argument('--host', type=str, default='localhost', help='Host where RabbitMQ is running')
 
 	args, unparsed = parser.parse_known_args()
-	main(args.flag, args.host)
+	flag = 'bus'
+	host = 'localhost'
+	# main(args.flag, args.host)
+	main(flag, host)
