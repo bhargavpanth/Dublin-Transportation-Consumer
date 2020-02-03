@@ -1,30 +1,16 @@
 import argparse
-import os
-import sys
-sys.path.append('src/Consumer/')
-from consumer import Consumer
-import logstash
-import logging
-import numpy as np
-
-# def filter(values):
-# 	essential_data = []
-# 	item = []
-# 	read_dictionary = np.load(os.getcwd() + "/model/d1.npy").item()
-# 	for i in values.keys():
-# 		l = values.get(i)
-# 		counter = 0
-# 		for j in l:
-# 			if j["duetime"]=="due":
-# 				counter = counter+1
-# 		item["due_count"] = str(counter)
-# 		item["longitude"] = read_dictionary[i][0]
-# 		item["lattitude"] = read_dictionary[i][1]
-# 		essential_data.append(item)
+from MLlib.clustering import K_Means
+from MLlib.regression import Regression
+from MLlib.classification import Classification
+from MLlib.feature_selection import FeatureSelection
 
 def main(flag, host):
-	message = Consumer(flag, host)
-	message = message.pull_message()
+	'''
+	Run the ensemble of classification and regression methods
+	'''
+	# Perform feature selection
+	feature_importance_matrix = FeatureSelection().random_forests()
+	print(feature_importance_matrix)
 
 if __name__ == '__main__':
 	

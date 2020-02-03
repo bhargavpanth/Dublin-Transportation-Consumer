@@ -25,9 +25,9 @@ class FeatureSelection:
         print(rf_model.featureImportances)
         return rf_model.featureImportances
 
-def main():
-    FeatureSelection().random_forests()
+# def main():
+#     FeatureSelection().random_forests()
 
-if __name__ == '__main__':
-    main()
+# if __name__ == '__main__':
+#     main()
 
