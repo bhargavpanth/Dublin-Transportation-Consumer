@@ -29,8 +29,8 @@ class Classification:
         return results
 
 
-def main():
-    Classification().logistic_regression()
+# def main():
+#     Classification().logistic_regression()
 
-if __name__ == '__main__':
-    main()
+# if __name__ == '__main__':
+#     main()
