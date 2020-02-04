@@ -5,12 +5,15 @@ from MLlib.classification import Classification
 from MLlib.feature_selection import FeatureSelection
 
 def main(flag, host):
-	'''
-	Run the ensemble of classification and regression methods
-	'''
 	# Perform feature selection
 	feature_importance_matrix = FeatureSelection().random_forests()
 	print(feature_importance_matrix)
+
+	# classification and clustering
+	log_reg = Classification().logistic_regression()
+	print(log_reg)
+
+	# regression
 
 if __name__ == '__main__':
 	
