@@ -27,10 +27,10 @@ class K_Means:
         scaler_model = scaler.fit(final_df)
         return scaler_model.transform(final_df)
 
-def main():
-    kmeans = K_Means().kmeans()
-    print(kmeans)
+# def main():
+#     kmeans = K_Means().kmeans()
+#     print(kmeans)
 
-if __name__ == '__main__':
-    main()
+# if __name__ == '__main__':
+#     main()
 

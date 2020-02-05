@@ -13,7 +13,11 @@ def main(flag, host):
 	log_reg = Classification().logistic_regression()
 	print(log_reg)
 
+	kmeans = K_Means().kmeans()
+	print(kmeans)
+
 	# regression
+
 
 if __name__ == '__main__':
 	
