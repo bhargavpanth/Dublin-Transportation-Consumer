@@ -6,6 +6,7 @@ import sys
 sys.path.append('src/Consumer/')
 from consumer import Consumer
 
+# introduce structured streaming
 class K_Means:
     def __init__(self):
         self.spark = SparkSession.builder.appName('kmeans').getOrCreate()

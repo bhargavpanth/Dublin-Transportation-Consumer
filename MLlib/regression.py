@@ -10,6 +10,7 @@ import os
 sys.path.append('src/Consumer/')
 from consumer import Consumer
 
+# introduce structured streaming
 class Regression:
     def __init__(self):
         self.consumer = Consumer('bus', 'localhost')

@@ -7,6 +7,7 @@ import sys
 sys.path.append('src/Consumer/')
 from consumer import Consumer
 
+# introduce structured streaming
 class Classification:
     def __init__(self):
         self.consumer = Consumer('bus', 'localhost')

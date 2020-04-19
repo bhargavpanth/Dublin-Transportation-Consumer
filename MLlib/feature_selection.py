@@ -6,6 +6,8 @@ import sys
 sys.path.append('src/Consumer/')
 from consumer import Consumer
 
+# introduce structured streaming
+
 class FeatureSelection:
     def __init__(self):
         self.stream = Consumer('bus', 'localhost').get_stream()
