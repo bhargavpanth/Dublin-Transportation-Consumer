@@ -2,12 +2,14 @@ from pyspark.ml.feature import VectorAssembler
 from pyspark.ml.classification import RandomForestClassifier
 from pyspark import SparkContext
 from pyspark.streaming import StreamingContext
+from pyspark.sql import Row, SparkSession
 import sys
 sys.path.append('src/Consumer/')
 from consumer import Consumer
 
-# introduce structured streaming
-
+'''
+Introduce structured streaming
+'''
 class FeatureSelection:
     def __init__(self):
         self.stream = Consumer('bus', 'localhost').get_stream()
