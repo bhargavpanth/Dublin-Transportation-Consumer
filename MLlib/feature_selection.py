@@ -14,6 +14,9 @@ Periodically collect metrics from the stream and throw it in a log file. The
 log file can then be used to perform sampling based experiments
 '''
 
+def temp_log_accumulation():
+    pass
+
 class FeatureSelection:
     def __init__(self):
         self.stream = Consumer('bus', 'localhost').get_stream()
