@@ -9,7 +9,11 @@ from consumer import Consumer
 
 '''
 Introduce structured streaming
+
+Periodically collect metrics from the stream and throw it in a log file. The 
+log file can then be used to perform sampling based experiments
 '''
+
 class FeatureSelection:
     def __init__(self):
         self.stream = Consumer('bus', 'localhost').get_stream()
