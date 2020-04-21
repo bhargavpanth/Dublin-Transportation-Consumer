@@ -15,7 +15,12 @@ log file can then be used to perform sampling based experiments
 '''
 
 def temp_log_accumulation():
-    pass
+    # Spark has inbuilt check-points. If the session was terminated unexpectedly
+    # getOrCreate helps resume form where things were left off
+    spark = SparkSession.builder.appName('feature_selection_stream').getOrCreate()
+    # monitor for new lines being added to the data file
+    return spark.readStream.text('data')
+
 
 class FeatureSelection:
     def __init__(self):
