@@ -16,7 +16,7 @@ from kafka import KafkaConsumer
 '''
 Replacing MQTT Util/RabbitMQ with Apache Kafka
 '''
-class KafkaConsumer:
+class ConsumerKafka:
 	def __init__(self, flag, host):
 		pass
 
