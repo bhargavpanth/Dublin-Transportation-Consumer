@@ -12,6 +12,10 @@ from pyspark.sql import SparkSession
 from mqtt_util import MQTTUtils
 from cassandra.cluster import Cluster
 
+'''
+Replacing MQTT Util/RabbitMQ with Apache Kafka
+'''
+
 class Consumer:
 	def __init__(self, flag, host):
 		self.flag = flag
