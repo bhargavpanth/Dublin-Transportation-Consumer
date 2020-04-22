@@ -15,7 +15,6 @@ from cassandra.cluster import Cluster
 '''
 Replacing MQTT Util/RabbitMQ with Apache Kafka
 '''
-
 class Consumer:
 	def __init__(self, flag, host):
 		self.flag = flag
