@@ -11,10 +11,15 @@ from pyspark.streaming import StreamingContext
 from pyspark.sql import SparkSession
 from mqtt_util import MQTTUtils
 from cassandra.cluster import Cluster
+from kafka import KafkaConsumer
 
 '''
 Replacing MQTT Util/RabbitMQ with Apache Kafka
 '''
+class KafkaConsumer:
+	def __init__(self, flag, host):
+		pass
+
 class Consumer:
 	def __init__(self, flag, host):
 		self.flag = flag
