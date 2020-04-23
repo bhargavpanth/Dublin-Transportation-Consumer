@@ -12,7 +12,7 @@ from pyspark.sql import SparkSession
 from mqtt_util import MQTTUtils
 from cassandra.cluster import Cluster
 from kafka import KafkaConsumer
-
+from pyspark.streaming.kafka import KafkaUtils
 
 '''
 For now, Kafka consumer will subscribe to only one topic
@@ -21,15 +21,16 @@ class ConsumerKafka:
 	def __init__(self, flag, host):
 		self.flag = flag
 		self.host = host
-		self.cluster_ip = '' #cluster IP to be set
-		self.sc = SparkContext()
+		# self.cluster_ip = '' #cluster IP to be set
+		self.sc = SparkContext(appName='kafka_consumer')
+		self.sc = StreamingContext(self.sc, 2)
 
 class Consumer:
 	def __init__(self, flag, host):
 		self.flag = flag
 		self.host = host
 		self.cluster_ip = '' #cluster IP to be set
-		self.sc = SparkContext()
+		self.sc = SparkContext(appName='consumer')
 		self.ssc = StreamingContext(self.sc, 10)
 		self.cassandra = Cluster([self.cluster_ip])
 		self.spark = SparkSession.builder.appName('consumer').getOrCreate()
