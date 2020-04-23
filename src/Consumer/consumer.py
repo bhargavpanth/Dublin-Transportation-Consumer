@@ -13,12 +13,16 @@ from mqtt_util import MQTTUtils
 from cassandra.cluster import Cluster
 from kafka import KafkaConsumer
 
+
 '''
-Replacing MQTT Util/RabbitMQ with Apache Kafka
+For now, Kafka consumer will subscribe to only one topic
 '''
 class ConsumerKafka:
 	def __init__(self, flag, host):
-		pass
+		self.flag = flag
+		self.host = host
+		self.cluster_ip = '' #cluster IP to be set
+		self.sc = SparkContext()
 
 class Consumer:
 	def __init__(self, flag, host):
