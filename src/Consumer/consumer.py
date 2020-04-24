@@ -23,7 +23,7 @@ class ConsumerKafka:
 		self.host = host
 		# self.cluster_ip = '' #cluster IP to be set
 		self.sc = SparkContext(appName='kafka_consumer')
-		self.sc = StreamingContext(self.sc, 2)
+		self.ssc = StreamingContext(self.sc, 2)
 		self.dks = KafkaUtils.createDirectStream(self.ssc, ['add_db_specs_here'], {'metadata.broker.list':'localhost:9092'})
 
 class Consumer:
