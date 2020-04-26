@@ -25,6 +25,7 @@ def temp_log_accumulation():
 class FeatureSelection:
     def __init__(self):
         self.stream = Consumer('bus', 'localhost').get_stream()
+        self.kafka_stream = ConsumerKafka('bus', 'localhost')
 
     def select_feature(self):
         rdd = self.stream.filter(lambda message: float(message)) \
