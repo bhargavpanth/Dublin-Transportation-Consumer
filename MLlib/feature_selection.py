@@ -5,7 +5,7 @@ from pyspark.streaming import StreamingContext
 from pyspark.sql import Row, SparkSession
 import sys
 sys.path.append('src/Consumer/')
-from consumer import Consumer
+from consumer import Consumer, ConsumerKafka
 
 '''
 Introduce structured streaming
