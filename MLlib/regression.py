@@ -8,13 +8,14 @@ import ast
 import numpy as np
 import os
 sys.path.append('src/Consumer/')
-from consumer import Consumer
+from consumer import Consumer, ConsumerKafka
 
 # introduce structured streaming
 class Regression:
     def __init__(self):
         self.consumer = Consumer('bus', 'localhost')
         self.stream = self.consumer.get_stream()
+        self.kafka_stream = ConsumerKafka('bus', 'localhost')
         self.cleaned_stream = self.stream.map(self.clean_up)
         self.conf = SparkConf().setMaster('local').setAppName('linear_regression')
         self.sc = SparkContext(conf = self.conf)
