@@ -5,12 +5,13 @@ from pyspark.ml.feature import VectorAssembler, StringIndexer, VectorIndexer, On
 from pyspark.ml import Pipeline
 import sys
 sys.path.append('src/Consumer/')
-from consumer import Consumer
+from consumer import Consumer, ConsumerKafka
 
 # introduce structured streaming
 class Classification:
     def __init__(self):
         self.consumer = Consumer('bus', 'localhost')
+        self.kafka_stream = ConsumerKafka('bus', 'localhost')
         self.stream = self.consumer.get_stream()
 
     def logistic_regression(self):
