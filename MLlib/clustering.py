@@ -4,7 +4,7 @@ from pyspark.ml.feature import VectorAssembler, StandardScaler
 from pyspark.ml.clustering import KMeans
 import sys
 sys.path.append('src/Consumer/')
-from consumer import Consumer
+from consumer import Consumer, ConsumerKafka
 
 # introduce structured streaming
 class K_Means:
@@ -14,6 +14,7 @@ class K_Means:
         self.sc = SparkContext(conf = self.conf)
         self.consumer = Consumer('bus', 'localhost')
         self.stream = self.consumer.get_stream()
+        self.kafka_stream = ConsumerKafka('bus', 'localhost')
 
     def kmeans(self):
         rdd = self.stream.filter(lambda message: float(message.temperature)) \
