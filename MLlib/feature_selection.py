@@ -8,12 +8,11 @@ sys.path.append('src/Consumer/')
 from consumer import Consumer, ConsumerKafka
 
 '''
-Introduce structured streaming
-
 Periodically collect metrics from the stream and throw it in a log file. The 
-log file can then be used to perform sampling based experiments
-'''
+log file can then be used to perform sampling based experiments.
 
+This method is not used as the stream are structured
+'''
 def temp_log_accumulation():
     # Spark has inbuilt check-points. If the session was terminated unexpectedly
     # getOrCreate helps resume form where things were left off
