@@ -16,6 +16,7 @@ class K_Means:
         self.stream = self.consumer.get_stream()
         self.kafka_stream = ConsumerKafka('bus', 'localhost')
 
+    # kafka_stream and stream are both interchangable
     def kmeans(self):
         rdd = self.stream.filter(lambda message: float(message.temperature)) \
             .filter(lambda message: float(message.delay > 10000)) \

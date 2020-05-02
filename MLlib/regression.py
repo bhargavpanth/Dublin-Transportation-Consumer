@@ -21,6 +21,7 @@ class Regression:
         self.sc = SparkContext(conf = self.conf)
         self.spark = SparkSession(self.sc)
 
+    # kafka_stream and stream are both interchangable
     def clean_up(self, data):
         essential_data = list()
         read_dictionary = np.load(os.getcwd() + '/model/d1.npy').item()

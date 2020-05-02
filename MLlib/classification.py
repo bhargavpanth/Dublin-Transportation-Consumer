@@ -14,6 +14,7 @@ class Classification:
         self.kafka_stream = ConsumerKafka('bus', 'localhost')
         self.stream = self.consumer.get_stream()
 
+    # kafka_stream and stream are both interchangable
     def logistic_regression(self):
         # read from the stream
         rdd = self.stream.filter(lambda message: float(message.temperature)) \

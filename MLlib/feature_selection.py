@@ -26,6 +26,7 @@ class FeatureSelection:
         self.stream = Consumer('bus', 'localhost').get_stream()
         self.kafka_stream = ConsumerKafka('bus', 'localhost')
 
+    # kafka_stream and stream are both interchangable
     def select_feature(self):
         rdd = self.stream.filter(lambda message: float(message)) \
             .map(lambda message: round(float(message))) \
