@@ -15,10 +15,14 @@
  * ```sudo systemctl enable elasticsearch.service``` to start Elastic Search service
 
 #### Run the project
+If you want to use RabbitMQ for the pipelines
  * ```sudo rabbitmq-server start```
- * ```sudo systemctl enable elasticsearch.service```
- * ```sudo service elasticsearch start``` - you can also run Elastic Search on start by using ```sudo update-rc.d elasticsearch defaults 95 10``` Taken from tutorial [here]('https://www.digitalocean.com/community/tutorials/how-to-install-elasticsearch-logstash-and-kibana-elk-stack-on-ubuntu-14-04')
  * ```python main.py --flag=bus --host=localhost```
+
+ If you want to use Kafka
+ * Start the Kafka instance
+ * Make the change - replace all dataframe instances to ConsumerKafka instances 
+ * `python main.py --flag=bus --host=localhost`
 
 #### RabbitMQ Docker
  * Image available [here]('https://docs.docker.com/samples/library/rabbitmq/')
